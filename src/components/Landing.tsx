@@ -1,9 +1,10 @@
-// Marketing landing page — extracted from claude.ai/design handoff bundle
-// (project/design/landing.jsx + ParkHubLogo from project/design/shell.jsx).
-// Served as a standalone page; not part of the full six-surface prototype
-// that the app repos ship at /preview/.
+// Marketing landing page — ported from the claude.ai/design handoff bundle
+// (2026-04-18) into TSX. Astro's React integration compiles this under
+// React 19.2.4, matching parkhub-web's exact runtime.
 
-function ParkHubLogo({ size = 28 }) {
+import { Icon } from './Icons';
+
+function ParkHubLogo({ size = 28 }: { size?: number }) {
   return (
     <div style={{
       width: size, height: size, borderRadius: 8,
@@ -17,7 +18,7 @@ function ParkHubLogo({ size = 28 }) {
   );
 }
 
-function Landing() {
+export function Landing() {
   return (
     <div style={{ minHeight: '100%' }}>
       {/* Top nav */}
@@ -95,10 +96,10 @@ function Landing() {
           </div>
           <div style={{ marginTop: 28, display: 'flex', gap: 32, fontSize: 12, color: 'var(--theme-text-muted)', flexWrap: 'wrap' }}>
             {[
-              {i: 'shield', l: 'GDPR Art. 15/17 compliant'},
-              {i: 'key', l: '2FA + WebAuthn + SSO'},
-              {i: 'globe', l: '10 languages'},
-              {i: 'sparkle', l: '12 themes'},
+              { i: 'shield', l: 'GDPR Art. 15/17 compliant' },
+              { i: 'key', l: '2FA + WebAuthn + SSO' },
+              { i: 'globe', l: '10 languages' },
+              { i: 'sparkle', l: '12 themes' },
             ].map((x) => (
               <span key={x.l} style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
                 <Icon name={x.i} size={13}/>{x.l}
@@ -113,7 +114,7 @@ function Landing() {
             background: 'var(--theme-card-bg)',
           }}>
             <div style={{ padding: '8px 12px', background: 'var(--theme-bg-muted)', borderBottom: '1px solid var(--theme-border)', display: 'flex', gap: 6 }}>
-              {['#ef4444','#eab308','#22c55e'].map((c,i) => (
+              {['#ef4444', '#eab308', '#22c55e'].map((c, i) => (
                 <span key={i} style={{ width: 10, height: 10, borderRadius: '50%', background: c }}/>
               ))}
               <div style={{ flex: 1, textAlign: 'center', fontSize: 10, color: 'var(--theme-text-muted)', fontFamily: 'ui-monospace, Menlo, monospace' }}>
@@ -123,10 +124,10 @@ function Landing() {
             <div style={{ padding: 18 }}>
               <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 10 }}>Good morning, Florian</div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 8, marginBottom: 12 }}>
-                {[['Active','3','chart-line'],['Credits','45','coins'],['CO₂','12.4kg','leaf']].map(([l,v,i]) => (
+                {[['Active', '3', 'chart-line'], ['Credits', '45', 'coins'], ['CO₂', '12.4kg', 'leaf']].map(([l, v, i]) => (
                   <div key={l} style={{ padding: 10, borderRadius: 8, background: 'var(--theme-bg-muted)' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 10, color: 'var(--theme-text-muted)' }}>
-                      <Icon name={i} size={11}/>{l}
+                      <Icon name={i!} size={11}/>{l}
                     </div>
                     <div style={{ fontSize: 17, fontWeight: 800, marginTop: 3, fontVariantNumeric: 'tabular-nums' }}>{v}</div>
                   </div>
@@ -153,12 +154,20 @@ function Landing() {
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 20, maxWidth: 1100, margin: '0 auto' }}>
           {[
-            { name: 'Rust edition', tag: 'Axum · embedded redb', desc: 'Single binary, no database to run. 12 MB container. Deploy on a $5 VPS.',
-              pros: ['Single static binary','Embedded redb DB','Sub-millisecond latency','Lowest ops footprint'],
-              repo: 'nash87/parkhub-rust', demo: 'https://parkhub-rust-demo.onrender.com', accent: 'primary', icon: 'lightning' },
-            { name: 'PHP edition', tag: 'Laravel 13 · MySQL/SQLite', desc: 'Runs on any shared hosting with PHP 8.4. Familiar stack, familiar ops.',
-              pros: ['Works on shared hosting','MySQL or SQLite','Laravel 13 ecosystem','Composer install'],
-              repo: 'nash87/parkhub-php', demo: 'https://parkhub-php-demo.onrender.com', accent: 'accent', icon: 'server' },
+            {
+              name: 'Rust edition', tag: 'Axum · embedded redb',
+              desc: 'Single binary, no database to run. 12 MB container. Deploy on a $5 VPS.',
+              pros: ['Single static binary', 'Embedded redb DB', 'Sub-millisecond latency', 'Lowest ops footprint'],
+              repo: 'nash87/parkhub-rust', demo: 'https://parkhub-rust-demo.onrender.com',
+              accent: 'primary', icon: 'lightning',
+            },
+            {
+              name: 'PHP edition', tag: 'Laravel 13 · MySQL/SQLite',
+              desc: 'Runs on any shared hosting with PHP 8.4. Familiar stack, familiar ops.',
+              pros: ['Works on shared hosting', 'MySQL or SQLite', 'Laravel 13 ecosystem', 'Composer install'],
+              repo: 'nash87/parkhub-php', demo: 'https://parkhub-php-demo.onrender.com',
+              accent: 'accent', icon: 'server',
+            },
           ].map((ed) => (
             <div key={ed.name} className="card" style={{ padding: 28, position: 'relative', overflow: 'hidden' }}>
               <div aria-hidden style={{
@@ -204,18 +213,18 @@ function Landing() {
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12, maxWidth: 1100, margin: '0 auto' }}>
           {[
-            {i:'qr', t:'QR check-in', d:'Sub-second scan. Offline-capable. Apple Wallet export.'},
-            {i:'swap', t:'Swap requests', d:'Users trade slots with automatic credit balancing.'},
-            {i:'users', t:'Guest passes', d:'Time-limited QR codes for visitors, contractors, deliveries.'},
-            {i:'shield', t:'2FA + WebAuthn', d:'Passkeys, TOTP, and hardware keys. Argon2id at rest.'},
-            {i:'calendar', t:'iCal sync', d:'Push to Google, Apple, Outlook. Import from any source.'},
-            {i:'bell', t:'Push + webhooks', d:'Web Push, email, Slack, Discord — or your own HTTP endpoint.'},
-            {i:'chart-line', t:'Analytics + CSV', d:'Occupancy, utilization, lots, users. All exportable.'},
-            {i:'globe', t:'10 languages', d:'EN, DE, FR, ES, IT, JA, PL, PT, TR, ZH — all first-class.'},
-            {i:'sparkle', t:'12 themes', d:'Classic, Glass, Bento, Brutalist, Neon, Warm, Mono…'},
-            {i:'leaf', t:'CO₂ tracking', d:'Per-user impact. Commutes avoided. Shareable summaries.'},
-            {i:'key', t:'SSO', d:'OAuth 2.0, SAML, OIDC with provider-agnostic profiles.'},
-            {i:'database', t:'GDPR tools', d:'Art. 15 export, Art. 17 erase — one click per user.'},
+            { i: 'qr', t: 'QR check-in', d: 'Sub-second scan. Offline-capable. Apple Wallet export.' },
+            { i: 'swap', t: 'Swap requests', d: 'Users trade slots with automatic credit balancing.' },
+            { i: 'users', t: 'Guest passes', d: 'Time-limited QR codes for visitors, contractors, deliveries.' },
+            { i: 'shield', t: '2FA + WebAuthn', d: 'Passkeys, TOTP, and hardware keys. Argon2id at rest.' },
+            { i: 'calendar', t: 'iCal sync', d: 'Push to Google, Apple, Outlook. Import from any source.' },
+            { i: 'bell', t: 'Push + webhooks', d: 'Web Push, email, Slack, Discord — or your own HTTP endpoint.' },
+            { i: 'chart-line', t: 'Analytics + CSV', d: 'Occupancy, utilization, lots, users. All exportable.' },
+            { i: 'globe', t: '10 languages', d: 'EN, DE, FR, ES, IT, JA, PL, PT, TR, ZH — all first-class.' },
+            { i: 'sparkle', t: '12 themes', d: 'Classic, Glass, Bento, Brutalist, Neon, Warm, Mono…' },
+            { i: 'leaf', t: 'CO₂ tracking', d: 'Per-user impact. Commutes avoided. Shareable summaries.' },
+            { i: 'key', t: 'SSO', d: 'OAuth 2.0, SAML, OIDC with provider-agnostic profiles.' },
+            { i: 'database', t: 'GDPR tools', d: 'Art. 15 export, Art. 17 erase — one click per user.' },
           ].map((f) => (
             <div key={f.t} style={{
               padding: 16, borderRadius: 12, background: 'var(--theme-card-bg)',
