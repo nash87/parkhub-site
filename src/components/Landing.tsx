@@ -4,6 +4,16 @@
 
 import { Icon } from './Icons';
 
+// Injected by astro.config.mjs from ../parkhub-rust/Cargo.toml at build time.
+// Falls back to the pinned default when neither Vite nor the Cargo manifest
+// are available (e.g. type-checking outside the build graph).
+const APP_VERSION = (import.meta.env?.VITE_APP_VERSION as string | undefined) ?? '4.14.2';
+
+// Astro base path — injected at build time. Keeps asset URLs correct for
+// the sub-path deployment at https://nash87.github.io/parkhub-site/.
+const BASE = import.meta.env?.BASE_URL ?? '/';
+const asset = (p: string) => `${BASE.replace(/\/$/, '')}/${p.replace(/^\//, '')}`;
+
 function ParkHubLogo({ size = 28 }: { size?: number }) {
   return (
     <div style={{
@@ -67,7 +77,7 @@ export function Landing() {
             textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 18,
           }}>
             <span className="pulse-dot" style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--color-primary-500)' }}/>
-            v4.13.0 released · Rust + PHP
+            v{APP_VERSION} released · Rust + PHP
           </span>
           <h1 style={{
             fontSize: 56, fontWeight: 800, lineHeight: 1.02,
@@ -118,28 +128,18 @@ export function Landing() {
                 <span key={i} style={{ width: 10, height: 10, borderRadius: '50%', background: c }}/>
               ))}
               <div style={{ flex: 1, textAlign: 'center', fontSize: 10, color: 'var(--theme-text-muted)', fontFamily: 'ui-monospace, Menlo, monospace' }}>
-                demo.parkhub.app/dashboard
+                parkhub-rust-demo.onrender.com/dashboard
               </div>
             </div>
-            <div style={{ padding: 18 }}>
-              <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 10 }}>Good morning, Florian</div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 8, marginBottom: 12 }}>
-                {[['Active', '3', 'chart-line'], ['Credits', '45', 'coins'], ['CO₂', '12.4kg', 'leaf']].map(([l, v, i]) => (
-                  <div key={l} style={{ padding: 10, borderRadius: 8, background: 'var(--theme-bg-muted)' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 10, color: 'var(--theme-text-muted)' }}>
-                      <Icon name={i!} size={11}/>{l}
-                    </div>
-                    <div style={{ fontSize: 17, fontWeight: 800, marginTop: 3, fontVariantNumeric: 'tabular-nums' }}>{v}</div>
-                  </div>
-                ))}
-              </div>
-              <div style={{ padding: 10, borderRadius: 8, background: 'color-mix(in oklch, var(--color-primary-500) 6%, transparent)' }}>
-                <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 8 }}>Weekly activity</div>
-                <svg viewBox="0 0 200 40" style={{ width: '100%', height: 34 }}>
-                  <path d="M0 30 Q 30 20, 50 22 T 100 15 T 150 8 T 200 12" fill="none" stroke="var(--color-primary-600)" strokeWidth="2" strokeLinecap="round"/>
-                </svg>
-              </div>
-            </div>
+            <img
+              src={asset('/dashboard-hero.png')}
+              alt="ParkHub dashboard — active bookings, credits, CO₂ saved, weekly activity, live sensor feed"
+              width={1200}
+              height={630}
+              loading="eager"
+              decoding="async"
+              style={{ display: 'block', width: '100%', height: 'auto', background: 'var(--theme-card-bg)' }}
+            />
           </div>
         </div>
       </section>
