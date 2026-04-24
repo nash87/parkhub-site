@@ -128,12 +128,12 @@ export function Landing() {
                 <span key={i} style={{ width: 10, height: 10, borderRadius: '50%', background: c }}/>
               ))}
               <div style={{ flex: 1, textAlign: 'center', fontSize: 10, color: 'var(--theme-text-muted)', fontFamily: 'ui-monospace, Menlo, monospace' }}>
-                parkhub-rust-demo.onrender.com/dashboard
+                parkhub-rust-demo.onrender.com/v5
               </div>
             </div>
             <img
               src={asset('/dashboard-hero.png')}
-              alt="ParkHub dashboard — active bookings, credits, CO₂ saved, weekly activity, live sensor feed"
+              alt="ParkHub v5 Dashboard — bento layout, active booking stats, credits, weekly activity, OKLCH Marble theme"
               width={1200}
               height={630}
               loading="eager"
