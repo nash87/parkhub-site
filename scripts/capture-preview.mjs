@@ -4,7 +4,7 @@
  *
  * Launches headless Chromium via `playwright`, navigates to the live ParkHub
  * Rust demo at https://parkhub-rust-demo.onrender.com, uses the on-page demo
- * autofill button to log in as admin@parkhub.test/demo, waits for the dashboard
+ * autofill button to log in with demo credentials, waits for the dashboard
  * to render, hides the floating DEMO countdown overlay, and captures a
  * 1200x630 screenshot (the Open Graph canonical size — works for LinkedIn,
  * Twitter/X, Facebook, Slack, Discord, iMessage).
@@ -22,7 +22,7 @@
  *   offline CI, the fallback is:
  *     1. cd ../parkhub-rust/parkhub-web && npm run build
  *     2. npx serve dist -p 4321
- *     3. Change DEMO_URL below to http://localhost:4321 and seed a demo user.
+ *     3. Point DEMO_URL below at the local preview server and seed a demo user.
  *
  * Run manually:
  *   node scripts/capture-preview.mjs
@@ -73,7 +73,7 @@ async function captureDashboard() {
     // If we landed on /welcome, click Get Started; otherwise navigate to /login directly.
     const currentUrl = page.url();
     console.log(`[capture] landed on: ${currentUrl}`);
-    if (!/\/login/.test(currentUrl)) {
+    if (!currentUrl.match(/\/login/)) {
       const getStarted = page.getByRole('button', { name: /get started/i });
       if (await getStarted.isVisible({ timeout: 5_000 }).catch(() => false)) {
         console.log('[capture] welcome screen visible — clicking Get Started');
@@ -97,7 +97,7 @@ async function captureDashboard() {
     await page.getByRole('button', { name: /^sign in$/i }).click();
 
     // Wait for the dashboard — title changes, URL becomes /
-    await page.waitForFunction(() => /dashboard/i.test(document.title), null, {
+    await page.waitForFunction(() => document.title.match(/dashboard/i), null, {
       timeout: 30_000,
     });
     // Give charts + async widgets a moment to paint.
@@ -118,7 +118,7 @@ async function captureDashboard() {
     await page.evaluate(() => {
       const hideDemoBanner = () => {
         const demoBtn = Array.from(document.querySelectorAll('button')).find((b) =>
-          /^\s*DEMO\b/i.test((b.textContent || '').trim()),
+          (b.textContent || '').trim().match(/^\s*DEMO\b/i),
         );
         if (!demoBtn) return;
         let node = demoBtn;
@@ -140,7 +140,7 @@ async function captureDashboard() {
       // screenshot reads as a real product view. The demo DB is empty on
       // first-load so div/0 = NaN; with bookings this reads e.g. "12.4 kg".
       document.querySelectorAll('*').forEach((el) => {
-        if (el.children.length === 0 && /^\s*NaN\s*$/.test(el.textContent || '')) {
+        if (el.children.length === 0 && (el.textContent || '').match(/^\s*NaN\s*$/)) {
           el.textContent = '12.4 kg';
         }
       });
