@@ -38,20 +38,22 @@ export default defineConfig({
   // and emits it as a local asset — no Google Fonts request reaches the user.
   // This removes the GDPR concern from the CDN link that was previously in
   // src/pages/index.astro.
-  experimental: {
-    fonts: [
-      {
-        provider: fontProviders.google(),
-        name: 'Inter',
-        cssVariable: '--font-inter',
-        weights: [400, 500, 600, 700, 800],
-        styles: ['normal'],
-        subsets: ['latin'],
-        fallbacks: ['system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
-        display: 'swap',
-      },
-    ],
-  },
+  // Astro 6 stabilized the fonts API: top-level `fonts`, not
+  // `experimental.fonts` (the experimental key fails the whole build).
+  // Pages must render <Font cssVariable="..." /> from astro:assets to emit
+  // the @font-face CSS + preload links.
+  fonts: [
+    {
+      provider: fontProviders.google(),
+      name: 'Inter',
+      cssVariable: '--font-inter',
+      weights: [400, 500, 600, 700, 800],
+      styles: ['normal'],
+      subsets: ['latin'],
+      fallbacks: ['system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
+      display: 'swap',
+    },
+  ],
   vite: {
     define: {
       'import.meta.env.VITE_APP_VERSION': JSON.stringify(appVersion),
