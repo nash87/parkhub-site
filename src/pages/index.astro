@@ -1,4 +1,5 @@
 ---
+import { Font } from 'astro:assets';
 import '../styles/tokens.css';
 import { Landing } from '../components/Landing';
 ---
@@ -31,10 +32,11 @@ import { Landing } from '../components/Landing';
 <meta name="twitter:image" content="https://nash87.github.io/parkhub-site/og-preview.png" />
 <meta name="twitter:image:alt" content="ParkHub dashboard — active bookings, credits, CO₂ saved, weekly activity, live sensor feed" />
 
-<!-- Inter is self-hosted via Astro's experimental font optimization
-     (astro.config.mjs → experimental.fonts). No request reaches Google Fonts.
-     The CSS variable --font-inter is emitted by the build and applied in
-     tokens.css to the body font stack. -->
+<!-- Inter is self-hosted via Astro's font optimization (astro.config.mjs →
+     fonts, stable since Astro 6). <Font /> emits the @font-face CSS and
+     preload links; no request reaches Google Fonts. The CSS variable
+     --font-inter is applied in tokens.css to the body font stack. -->
+<Font cssVariable="--font-inter" preload />
 </head>
 <body>
   <Landing />
