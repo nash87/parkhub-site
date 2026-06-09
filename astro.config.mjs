@@ -1,14 +1,14 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig, fontProviders } from 'astro/config';
 import react from '@astrojs/react';
 import { readFileSync } from 'node:fs';
 
 // Pull the workspace version from the neighbouring parkhub-rust Cargo.toml so
-// the landing-page badge stays in sync with every release tag. Mirrors the
-// pattern in parkhub-rust/parkhub-web/astro.config.mjs. Falls back to a pinned
-// default when the Cargo manifest isn't reachable (e.g. GitHub Pages CI builds
-// that only clone parkhub-site).
-const FALLBACK_VERSION = '4.14.2';
+// the landing-page badge stays in sync with every release tag. Falls back to a
+// pinned default when the Cargo manifest isn't reachable (e.g. GitHub Pages CI
+// builds that only clone parkhub-site). Bump FALLBACK_VERSION after each
+// parkhub-rust release.
+const FALLBACK_VERSION = '5.1.0';
 const appVersion = (() => {
   try {
     const cargo = readFileSync(
@@ -32,6 +32,25 @@ export default defineConfig({
   output: 'static',
   build: {
     assets: '_astro',
+  },
+  // Self-host Inter at build time via Astro's font optimization.
+  // Astro downloads the font from Google Fonts once during `astro build`
+  // and emits it as a local asset — no Google Fonts request reaches the user.
+  // This removes the GDPR concern from the CDN link that was previously in
+  // src/pages/index.astro.
+  experimental: {
+    fonts: [
+      {
+        provider: fontProviders.google(),
+        name: 'Inter',
+        cssVariable: '--font-inter',
+        weights: [400, 500, 600, 700, 800],
+        styles: ['normal'],
+        subsets: ['latin'],
+        fallbacks: ['system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
+        display: 'swap',
+      },
+    ],
   },
   vite: {
     define: {

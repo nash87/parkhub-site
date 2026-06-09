@@ -1,0 +1,36 @@
+name: Feature Request
+description: Suggest an improvement to the ParkHub marketing site
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template for site-specific requests: copy edits, new sections,
+        design changes, accessibility improvements, or new screenshots.
+
+        For requests about ParkHub the application, open an issue in
+        [parkhub-rust](https://github.com/nash87/parkhub-rust/issues) or
+        [parkhub-php](https://github.com/nash87/parkhub-php/issues).
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is missing or could be better?
+      placeholder: Describe what the site currently lacks or does wrong.
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed change
+      placeholder: What would you add or change? Rough sketches or copy suggestions welcome.
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Area
+      options:
+        - Copy / content
+        - Design / layout
+        - Accessibility
+        - Performance
+        - Screenshots / assets
+        - Other

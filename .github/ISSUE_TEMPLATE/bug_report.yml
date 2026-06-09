@@ -1,0 +1,35 @@
+name: Bug Report
+description: Something on the marketing site is broken or displays incorrectly
+labels: [bug]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the problem
+      placeholder: What is wrong? What did you expect to see instead?
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: URL
+      placeholder: "https://nash87.github.io/parkhub-site/..."
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Browser and OS
+      placeholder: "e.g. Firefox 127 on macOS 15, or Chrome 126 on Windows 11"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: "1. Open the page\n2. ..."
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: Screenshot (optional)
+      description: Drag and drop an image here if it helps illustrate the problem.
