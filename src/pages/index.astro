@@ -31,9 +31,10 @@ import { Landing } from '../components/Landing';
 <meta name="twitter:image" content="https://nash87.github.io/parkhub-site/og-preview.png" />
 <meta name="twitter:image:alt" content="ParkHub dashboard — active bookings, credits, CO₂ saved, weekly activity, live sensor feed" />
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<!-- Inter is self-hosted via Astro's experimental font optimization
+     (astro.config.mjs → experimental.fonts). No request reaches Google Fonts.
+     The CSS variable --font-inter is emitted by the build and applied in
+     tokens.css to the body font stack. -->
 </head>
 <body>
   <Landing />
