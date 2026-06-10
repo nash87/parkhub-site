@@ -38,6 +38,12 @@ jobs:
       - name: Type-check
         run: npm run check
 
+      - name: Anti-slop design gate
+        # Blocks default-LLM aesthetic/vocabulary drift (slop copy,
+        # gradient-mesh CSS, radii past the 4px securanido contract cap)
+        # from reaching the public site. Zero-dep; see the script header.
+        run: python3 scripts/check-anti-slop.py
+
       - name: Build
         run: npm run build
 
