@@ -5,38 +5,39 @@ import { Landing } from '../components/Landing';
 ---
 
 <!DOCTYPE html>
-<html lang="en" data-theme="light" data-usecase="company">
+<html lang="en" data-brand="securanido" data-mode="dark">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>ParkHub — Self-hosted parking management in Rust + PHP</title>
+<title>ParkHub - Self-hosted parking management in Rust + PHP</title>
 <meta
   name="description"
-  content="Open-source, self-hosted parking management. Two editions — Rust (single binary) and PHP (Laravel 13). Same React frontend. GDPR compliant. MIT licensed."
+  content="Open-source, self-hosted parking management. Two editions: Rust for a small operations footprint and PHP for Laravel teams. Same React dashboard. MIT licensed."
 />
-<meta name="theme-color" content="#0d7490" />
-
 <!-- Open Graph / Twitter -->
 <meta property="og:type" content="website" />
-<meta property="og:title" content="ParkHub — Self-hosted parking management" />
-<meta property="og:description" content="Two editions — Rust for minimal ops, PHP for shared hosting. Same React frontend. GDPR compliant. MIT licensed." />
+<meta property="og:title" content="ParkHub - Self-hosted parking management" />
+<meta property="og:description" content="Two editions: Rust for a small operations footprint and PHP for Laravel teams. Same React dashboard. MIT licensed." />
 <meta property="og:url" content="https://nash87.github.io/parkhub-site/" />
 <meta property="og:image" content="https://nash87.github.io/parkhub-site/og-preview.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:image:type" content="image/png" />
-<meta property="og:image:alt" content="ParkHub dashboard — active bookings, credits, CO₂ saved, weekly activity, live sensor feed" />
+<meta property="og:image:alt" content="ParkHub dashboard with booking statistics, usage charts, parking activity, and administrative controls." />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="ParkHub — Self-hosted parking management" />
-<meta name="twitter:description" content="Two editions — Rust for minimal ops, PHP for shared hosting. Same React frontend. GDPR compliant. MIT licensed." />
+<meta name="twitter:title" content="ParkHub - Self-hosted parking management" />
+<meta name="twitter:description" content="Two editions: Rust for a small operations footprint and PHP for Laravel teams. Same React dashboard. MIT licensed." />
 <meta name="twitter:image" content="https://nash87.github.io/parkhub-site/og-preview.png" />
-<meta name="twitter:image:alt" content="ParkHub dashboard — active bookings, credits, CO₂ saved, weekly activity, live sensor feed" />
+<meta name="twitter:image:alt" content="ParkHub dashboard with booking statistics, usage charts, parking activity, and administrative controls." />
 
-<!-- Inter is self-hosted via Astro's font optimization (astro.config.mjs →
-     fonts, stable since Astro 6). <Font /> emits the @font-face CSS and
-     preload links; no request reaches Google Fonts. The CSS variable
-     --font-inter is applied in tokens.css to the body font stack. -->
+<!-- All three families are self-hosted via Astro's font optimization
+     (astro.config.mjs → fonts, stable since Astro 6). <Font /> emits the
+     @font-face CSS and preload links; no request reaches Google Fonts.
+     tokens.css consumes --font-inter/--font-fraunces/--font-jetbrains-mono
+     in the --font-sans/--font-serif/--font-mono stacks. -->
 <Font cssVariable="--font-inter" preload />
+<Font cssVariable="--font-fraunces" preload />
+<Font cssVariable="--font-jetbrains-mono" />
 </head>
 <body>
   <Landing />

@@ -38,10 +38,6 @@ export default defineConfig({
   // and emits it as a local asset — no Google Fonts request reaches the user.
   // This removes the GDPR concern from the CDN link that was previously in
   // src/pages/index.astro.
-  // Astro 6 stabilized the fonts API: top-level `fonts`, not
-  // `experimental.fonts` (the experimental key fails the whole build).
-  // Pages must render <Font cssVariable="..." /> from astro:assets to emit
-  // the @font-face CSS + preload links.
   fonts: [
     {
       provider: fontProviders.google(),
@@ -51,6 +47,29 @@ export default defineConfig({
       styles: ['normal'],
       subsets: ['latin'],
       fallbacks: ['system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
+      display: 'swap',
+    },
+    // Editorial serif for the warm Securanido landing redesign. The old CDN
+    // link tuned Fraunces' SOFT/WONK variable axes; the build-time provider
+    // serves default axes, which degrade gracefully.
+    {
+      provider: fontProviders.google(),
+      name: 'Fraunces',
+      cssVariable: '--font-fraunces',
+      weights: [350, 400],
+      styles: ['normal', 'italic'],
+      subsets: ['latin'],
+      fallbacks: ['Georgia', 'serif'],
+      display: 'swap',
+    },
+    {
+      provider: fontProviders.google(),
+      name: 'JetBrains Mono',
+      cssVariable: '--font-jetbrains-mono',
+      weights: [500, 700],
+      styles: ['normal'],
+      subsets: ['latin'],
+      fallbacks: ['Menlo', 'Consolas', 'monospace'],
       display: 'swap',
     },
   ],
