@@ -6,6 +6,8 @@ name: Deploy to GitHub Pages
 # running in parallel.
 
 on:
+  pull_request:
+    branches: [main]
   push:
     branches: [main]
   workflow_dispatch:
@@ -47,15 +49,34 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Install accessibility test browser
+        run: ./node_modules/.bin/playwright install --with-deps chromium
+
+      - name: Accessibility gate
+        run: npm run test:a11y
+
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa  # v4
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9  # v5.0.0
         with:
           path: ./dist
 
+  required-checks:
+    name: Required checks
+    needs: build
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Enforce required results
+        env:
+          BUILD_RESULT: ${{ needs.build.result }}
+        run: test "$BUILD_RESULT" = success
+
   deploy:
     name: Deploy to Pages
-    needs: build
-    if: github.ref == 'refs/heads/main'
+    needs: [build, required-checks]
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
