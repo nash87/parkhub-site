@@ -144,3 +144,8 @@ dist/
 .env
 .env.production
 *.tsbuildinfo
+
+# Playwright
+test-results/
+playwright-report/
+blob-report/

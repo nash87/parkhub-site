@@ -6,7 +6,7 @@ Live at **<https://nash87.github.io/parkhub-site/>**.
 
 ## Stack
 
-- **Astro 6** — static site generator, builds to plain HTML
+- **Astro 7** — static site generator, builds to plain HTML
 - **React 19** — landing page is a single React component (`src/components/Landing.tsx`)
 - **Warm Securanido tokens** via `src/styles/tokens.css`, derived from the ParkHub repos' `DESIGN.md`
 - **Playwright** — used by `scripts/capture-preview.mjs` to refresh the OG preview image

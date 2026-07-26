@@ -97,7 +97,7 @@ export function Landing() {
               Two open-source editions: Rust for the smallest operations footprint, PHP for Laravel teams and shared hosting.
               Both keep the same React dashboard, booking model, and release evidence trail.
             </p>
-            <div className="hero-actions" aria-label="Primary actions">
+            <nav className="hero-actions" aria-label="Primary actions">
               <a className="button button-primary" href={repoLinks.demo}>
                 <Icon name="rocket" size={16} />
                 Try the Rust demo
@@ -106,7 +106,7 @@ export function Landing() {
                 <Icon name="download" size={16} />
                 Install from source
               </a>
-            </div>
+            </nav>
             <dl className="proof-strip" aria-label="ParkHub release facts">
               <div>
                 <dt>License</dt>
@@ -187,14 +187,14 @@ export function Landing() {
             The GitHub Pages site should be the last mile of the release train, not the evidence source.
           </SectionHeading>
 
-          <div className="release-flow" aria-label="Release order">
+          <ol className="release-flow" role="list">
             {['Source proof', 'Local gates', 'GitHub checks', 'Screenshots', 'Public deploy'].map((step, index) => (
-              <div key={step} className="release-step">
-                <span>{String(index + 1).padStart(2, '0')}</span>
+              <li key={step} className="release-step">
+                <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
                 <p>{step}</p>
-              </div>
+              </li>
             ))}
-          </div>
+          </ol>
         </section>
 
         <section className="colophon" aria-label="Colophon">
