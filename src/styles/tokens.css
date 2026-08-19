@@ -187,6 +187,36 @@ img {
   color: var(--color-primary-500);
 }
 
+/*
+ * WCAG 2.2 SC 2.5.8 (Target Size, Minimum, AA) asks for a 24x24 CSS-pixel
+ * target. These links sat at 14-21px tall, because a bare inline <a> is only
+ * as tall as its line box.
+ *
+ * The standalone links are raised to 24px; on coarse pointers they go to 44px,
+ * the comfortable thumb target. `align-items: center` keeps the text on its
+ * original baseline, so the extra height is hit area rather than layout shift.
+ *
+ * Deliberately NOT included: links that sit inside a sentence, such as the
+ * colophon's "Built on the Securanido platform." SC 2.5.8 exempts targets in
+ * a line of text, and padding them would break the prose they belong to.
+ */
+.site-nav nav a,
+.site-footer nav a,
+.manifesto li > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 24px;
+}
+
+@media (pointer: coarse) {
+  .site-nav nav a,
+  .site-footer nav a,
+  .manifesto li > a {
+    min-height: 44px;
+  }
+}
+
 .button {
   display: inline-flex;
   align-items: center;
