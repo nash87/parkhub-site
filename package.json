@@ -14,7 +14,8 @@
     "preview": "astro preview",
     "check": "astro check",
     "lint": "tsc --noEmit",
-    "capture": "node scripts/capture-preview.mjs"
+    "capture": "node scripts/capture-preview.mjs",
+    "audit:a11y": "node scripts/audit-a11y.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^5.0.3",
